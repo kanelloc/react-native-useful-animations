@@ -1,18 +1,17 @@
-import React, { ComponentType } from 'react';
+import React from 'react';
 import {
   StyleSheet,
   View,
   Animated,
   Text,
   FlatListProps,
-  ViewProps,
   ImageSourcePropType,
 } from 'react-native';
 import { useScrollableHeader } from '../hooks/useScrollableHeader';
 import { HEADER_HEIGHT_MAX } from '../utils/constants';
 
 type Props = {
-  HeaderComponent?: ComponentType<ViewProps>;
+  HeaderComponent?: React.ReactNode;
   headerImg?: ImageSourcePropType;
 } & FlatListProps<any>;
 export const ScrollableFlatList = (props: Props) => {
@@ -51,12 +50,10 @@ export const ScrollableFlatList = (props: Props) => {
           ]}
         >
           {!!props.HeaderComponent ? (
-            <props.HeaderComponent />
+            props.HeaderComponent
           ) : (
             <View style={styles.topBarContainer}>
-              <Text>Left button</Text>
-              <Text style={{ fontSize: 20 }}>Nice list</Text>
-              <Text>Right button</Text>
+              <Text style={{ fontSize: 20 }}>Animated Header</Text>
             </View>
           )}
         </Animated.View>
