@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
-import { ScrollableFlatList } from 'react-native-useful-animations';
+import {
+  ScrollableFlatList,
+  ScrollableScrollView,
+} from 'react-native-useful-animations';
 import { HEADER_HEIGHT_MAX } from './utils/constants';
 import { Card } from './components/Card';
 import { Header } from './components/Header';
@@ -16,15 +19,25 @@ const App = () => {
   };
 
   return (
-    <ScrollableFlatList
+    // <ScrollableFlatList
+    //   HeaderComponent={<Header />}
+    //   headerImg={require('../assets/cabin.jpg')}
+    //   data={data}
+    //   keyExtractor={keyExtractor}
+    //   renderItem={renderItem}
+    //   style={styles.list}
+    //   contentContainerStyle={styles.container}
+    // />
+    <ScrollableScrollView
       HeaderComponent={<Header />}
       headerImg={require('../assets/cabin.jpg')}
-      data={data}
-      keyExtractor={keyExtractor}
-      renderItem={renderItem}
       style={styles.list}
       contentContainerStyle={styles.container}
-    />
+    >
+      {data.map((e) => {
+        return <Card item={e} key={e} />;
+      })}
+    </ScrollableScrollView>
   );
 };
 

@@ -1,19 +1,19 @@
 import React from 'react';
 import {
-  StyleSheet,
-  View,
-  Animated,
-  FlatListProps,
   ImageSourcePropType,
+  ScrollViewProps,
+  Animated,
+  View,
 } from 'react-native';
-import { useScrollableHeader } from '../hooks/useScrollableHeader';
 import { AnimatedHeader } from './AnimatedHeader';
+import { useScrollableHeader } from '../hooks/useScrollableHeader';
+import { HEADER_HEIGHT_MAX } from '../utils/constants';
 
 type Props = {
   HeaderComponent?: React.ReactNode;
   headerImg: ImageSourcePropType;
-} & FlatListProps<any>;
-export const ScrollableFlatList = (props: Props) => {
+} & ScrollViewProps;
+export const ScrollableScrollView = (props: Props) => {
   const [
     onScroll,
     headerTranslateY,
@@ -21,9 +21,16 @@ export const ScrollableFlatList = (props: Props) => {
     imageTranslateY,
     titleTranslateY,
   ] = useScrollableHeader();
-
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1 }}>
+      <Animated.ScrollView
+        {...props}
+        onScroll={onScroll}
+        scrollEventThrottle={16}
+        contentContainerStyle={{ paddingTop: HEADER_HEIGHT_MAX }}
+      >
+        {props.children}
+      </Animated.ScrollView>
       <AnimatedHeader
         HeaderComponent={props.HeaderComponent}
         headerImg={props.headerImg}
@@ -32,13 +39,6 @@ export const ScrollableFlatList = (props: Props) => {
         imageTranslateY={imageTranslateY}
         titleTranslateY={titleTranslateY}
       />
-      <Animated.FlatList {...props} onScroll={onScroll} />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
