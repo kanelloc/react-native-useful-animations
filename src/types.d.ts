@@ -1,5 +1,5 @@
 import type { ScrollViewProps } from 'react-native';
-import { ImageSourcePropType } from 'react-native';
+import { Animated, ImageSourcePropType } from 'react-native';
 
 export interface AnimatedScrollViewProps extends ScrollViewProps {
   /**
@@ -16,4 +16,10 @@ export interface AnimatedScrollViewProps extends ScrollViewProps {
    * @see https://reactnative.dev/docs/image#source
    */
   imgSource?: ImageSourcePropType;
+}
+
+export interface AnimatedHeaderProps {
+  scroll: Animated.Value;
+  children: any;
+  imageHeight: number;
 }

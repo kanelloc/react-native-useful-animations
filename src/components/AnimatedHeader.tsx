@@ -1,13 +1,13 @@
 import React from 'react';
 import { StatusBar, StyleSheet, Animated } from 'react-native';
 import { useAnimateNavbar } from '../hooks/useAnimateNavbar';
+import type { AnimatedHeaderProps } from '../types';
 
-type Props = {
-  scroll: Animated.Value;
-  children: any;
-  imageHeight: number;
-};
-const AnimatedHeader = ({ scroll, children, imageHeight }: Props) => {
+const AnimatedHeader = ({
+  scroll,
+  children,
+  imageHeight,
+}: AnimatedHeaderProps) => {
   const [headerOpacity, overflowHeaderOpacity] = useAnimateNavbar(
     scroll,
     imageHeight
