@@ -1,6 +1,9 @@
 import { RoundButton } from './RoundButton';
 import { View } from 'react-native';
 import * as React from 'react';
+import ArrowLeft from '../icons/ArrowLeft';
+import { ArrowRight } from '../icons/ArrowRight';
+import { Share } from '../icons/Share';
 
 export const Header = () => {
   return (
@@ -13,12 +16,12 @@ export const Header = () => {
         justifyContent: 'space-between',
       }}
     >
-      <RoundButton />
+      <RoundButton icon={<ArrowLeft />} />
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <View style={{ marginRight: 8 }}>
-          <RoundButton />
+          <RoundButton icon={<ArrowRight />} />
         </View>
-        <RoundButton />
+        <RoundButton icon={<Share />} />
       </View>
     </View>
   );

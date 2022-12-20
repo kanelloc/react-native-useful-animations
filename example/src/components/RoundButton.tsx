@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import { ArrowRight } from '../icons/ArrowRight';
 
-export const RoundButton = () => {
+type Props = {
+  icon: JSX.Element;
+};
+export const RoundButton = ({ icon }: Props) => {
   return (
     <TouchableOpacity
       style={styles.container}
@@ -10,7 +12,7 @@ export const RoundButton = () => {
         console.log('PRESS');
       }}
     >
-      <ArrowRight />
+      {icon}
     </TouchableOpacity>
   );
 };
