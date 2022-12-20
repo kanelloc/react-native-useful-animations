@@ -13,7 +13,7 @@ export const AnimatedScrollView = ({
   ...props
 }: AnimatedScrollViewProps) => {
   const imageHeight = headerImgHeight || IMG_HEADER_HEIGHT;
-  const [scroll, onScroll, scale, translateY] =
+  const [scroll, onScroll, scale, translateYDown, translateYUp] =
     useAnimateScrollView(imageHeight);
 
   return (
@@ -36,7 +36,13 @@ export const AnimatedScrollView = ({
             source={imgSource}
             style={[
               { height: imageHeight },
-              { transform: [{ scale }, { translateY }] },
+              {
+                transform: [
+                  { scale },
+                  { translateY: translateYUp },
+                  { translateY: translateYDown },
+                ],
+              },
             ]}
           />
         </View>

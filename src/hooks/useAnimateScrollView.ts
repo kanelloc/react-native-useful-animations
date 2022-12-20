@@ -6,13 +6,19 @@ export const useAnimateScrollView = (imageHeight: number) => {
 
   const scale = scroll.interpolate({
     inputRange: [-imageHeight, 0, imageHeight],
-    outputRange: [2, 1, 0.9],
+    outputRange: [2.5, 1, 0.85],
     extrapolate: 'clamp',
   });
 
-  const translateY = scroll.interpolate({
+  const translateYDown = scroll.interpolate({
     inputRange: [-imageHeight, 0, imageHeight],
-    outputRange: [-imageHeight * 0.5, 0, imageHeight * 0.5],
+    outputRange: [-imageHeight * 0.6, 0, imageHeight * 0.5],
+    extrapolate: 'clamp',
+  });
+
+  const translateYUp = scroll.interpolate({
+    inputRange: [-imageHeight, 0, imageHeight],
+    outputRange: [imageHeight * 0.3, 0, 0],
     extrapolate: 'clamp',
   });
 
@@ -21,5 +27,5 @@ export const useAnimateScrollView = (imageHeight: number) => {
     { useNativeDriver: true }
   );
 
-  return [scroll, onScroll, scale, translateY] as const;
+  return [scroll, onScroll, scale, translateYDown, translateYUp] as const;
 };
