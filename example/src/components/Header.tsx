@@ -1,41 +1,25 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
-import { ArrowRight } from '../icons/ArrowRight';
-import { Share } from '../icons/Share';
+import { RoundButton } from './RoundButton';
+import { View } from 'react-native';
+import * as React from 'react';
 
 export const Header = () => {
   return (
-    <View style={styles.topBarContainer}>
-      <View style={styles.roundBtn}>
-        <Text>X</Text>
-      </View>
+    <View
+      style={{
+        paddingVertical: 8,
+        width: '100%',
+        paddingHorizontal: 8,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+      }}
+    >
+      <RoundButton />
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <View style={[styles.roundBtn, { marginRight: 8 }]}>
-          <ArrowRight />
+        <View style={{ marginRight: 8 }}>
+          <RoundButton />
         </View>
-        <View style={styles.roundBtn}>
-          <Share />
-        </View>
+        <RoundButton />
       </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  topBarContainer: {
-    paddingHorizontal: 8,
-    width: '100%',
-    flexDirection: 'row',
-    paddingVertical: 16,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  roundBtn: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
