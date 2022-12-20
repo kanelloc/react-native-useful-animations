@@ -1,1 +1,2 @@
-export const HEADER_HEIGHT_MAX = 400;
+export const IMG_HEADER_HEIGHT = 300;
+export const HEADER_HEIGHT = 77;

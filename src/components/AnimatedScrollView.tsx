@@ -6,33 +6,38 @@ import {
   View,
 } from 'react-native';
 import React, { useRef } from 'react';
-import { HEADER_HEIGHT_MAX } from '../utils/constants';
-import Header from './Header';
+import { IMG_HEADER_HEIGHT } from '../utils/constants';
+import AnimatedHeader from './AnimatedHeader';
 
 type Props = {
   HeaderComponent?: JSX.Element;
+  headerImgHeight?: number;
   imgSource?: ImageSourcePropType;
 } & ScrollViewProps;
 export const AnimatedScrollView = ({
   HeaderComponent,
+  headerImgHeight,
   imgSource,
   children,
   ...props
 }: Props) => {
+  const imageHeight = headerImgHeight || IMG_HEADER_HEIGHT;
   const scroll = useRef(new Animated.Value(0)).current;
   const scale = scroll.interpolate({
-    inputRange: [-HEADER_HEIGHT_MAX, 0, HEADER_HEIGHT_MAX],
-    outputRange: [2, 1, 0.8],
+    inputRange: [-imageHeight, 0, imageHeight],
+    outputRange: [2, 1, 0.9],
     extrapolate: 'clamp',
   });
   const translateY = scroll.interpolate({
-    inputRange: [-HEADER_HEIGHT_MAX, 0, HEADER_HEIGHT_MAX],
-    outputRange: [-HEADER_HEIGHT_MAX * 0.5, 0, HEADER_HEIGHT_MAX * 0.7],
+    inputRange: [-imageHeight, 0, imageHeight],
+    outputRange: [-imageHeight * 0.5, 0, imageHeight * 0.5],
     extrapolate: 'clamp',
   });
   return (
     <>
-      <Header scroll={scroll}>{HeaderComponent}</Header>
+      <AnimatedHeader scroll={scroll} imageHeight={imageHeight}>
+        {HeaderComponent}
+      </AnimatedHeader>
       <Animated.ScrollView
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scroll } } }],
@@ -41,10 +46,21 @@ export const AnimatedScrollView = ({
         scrollEventThrottle={16}
         {...props}
       >
-        <View style={styles.imgContainer}>
+        <View
+          style={[
+            styles.imgContainer,
+            {
+              marginTop: -imageHeight * 4,
+              paddingTop: imageHeight * 4,
+            },
+          ]}
+        >
           <Animated.Image
             source={imgSource}
-            style={[styles.img, { transform: [{ scale }, { translateY }] }]}
+            style={[
+              { height: imageHeight },
+              { transform: [{ scale }, { translateY }] },
+            ]}
           />
         </View>
         {children}
@@ -55,12 +71,7 @@ export const AnimatedScrollView = ({
 
 const styles = StyleSheet.create({
   imgContainer: {
-    marginTop: -HEADER_HEIGHT_MAX * 3,
-    paddingTop: HEADER_HEIGHT_MAX * 3,
     alignItems: 'center',
     overflow: 'hidden',
-  },
-  img: {
-    height: HEADER_HEIGHT_MAX,
   },
 });

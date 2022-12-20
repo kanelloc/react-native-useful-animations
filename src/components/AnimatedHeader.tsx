@@ -1,19 +1,21 @@
 import React from 'react';
 import { StatusBar, StyleSheet, Animated } from 'react-native';
-import { HEADER_HEIGHT_MAX } from '../../example/src/utils/constants';
+import { HEADER_HEIGHT } from '../utils/constants';
 
 type Props = {
   scroll: Animated.Value;
   children: any;
+  imageHeight: number;
 };
-const Header = ({ scroll, children }: Props) => {
+const AnimatedHeader = ({ scroll, children, imageHeight }: Props) => {
+  const HEADER_HEIGHT_DIFFERENCE = imageHeight - HEADER_HEIGHT;
   const opacity = scroll.interpolate({
-    inputRange: [0, HEADER_HEIGHT_MAX * 0.75, HEADER_HEIGHT_MAX],
+    inputRange: [0, HEADER_HEIGHT_DIFFERENCE * 0.75, HEADER_HEIGHT_DIFFERENCE],
     outputRange: [0, 0, 1],
     extrapolate: 'clamp',
   });
   const opacity2 = scroll.interpolate({
-    inputRange: [0, HEADER_HEIGHT_MAX * 0.75, HEADER_HEIGHT_MAX],
+    inputRange: [0, HEADER_HEIGHT_DIFFERENCE * 0.75, HEADER_HEIGHT_DIFFERENCE],
     outputRange: [1, 1, 0],
     extrapolate: 'clamp',
   });
@@ -69,4 +71,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Header;
+export default AnimatedHeader;

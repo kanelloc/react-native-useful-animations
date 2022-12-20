@@ -8,6 +8,7 @@ const App = () => {
 
   return (
     <AnimatedScrollView
+      headerImgHeight={500}
       HeaderComponent={<Header />}
       imgSource={require('../assets/cabin.jpg')}
     >
