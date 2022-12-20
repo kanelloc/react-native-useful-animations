@@ -18,9 +18,6 @@ export const AnimatedScrollView = ({
 
   return (
     <>
-      <AnimatedHeader scroll={scroll} imageHeight={imageHeight}>
-        {HeaderComponent}
-      </AnimatedHeader>
       <Animated.ScrollView
         onScroll={onScroll}
         scrollEventThrottle={16}
@@ -45,6 +42,9 @@ export const AnimatedScrollView = ({
         </View>
         {children}
       </Animated.ScrollView>
+      <AnimatedHeader scroll={scroll} imageHeight={imageHeight}>
+        {HeaderComponent}
+      </AnimatedHeader>
     </>
   );
 };

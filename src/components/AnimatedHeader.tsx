@@ -47,9 +47,8 @@ const AnimatedHeader = ({
 const styles = StyleSheet.create({
   container: {
     paddingTop: 50 - 16,
-    zIndex: 10,
-    elevation: 1,
     position: 'absolute',
+    elevation: 2,
     top: 0,
     width: '100%',
     backgroundColor: 'white',
