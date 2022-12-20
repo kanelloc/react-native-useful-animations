@@ -1,8 +1,9 @@
 import { Animated, StyleSheet, View } from 'react-native';
-import React, { useRef } from 'react';
+import React from 'react';
 import { IMG_HEADER_HEIGHT } from '../constants';
 import AnimatedHeader from './AnimatedHeader';
 import type { AnimatedScrollViewProps } from '../types';
+import { useAnimateScrollView } from '../hooks/useAnimateScrollView';
 
 export const AnimatedScrollView = ({
   HeaderComponent,
@@ -12,29 +13,16 @@ export const AnimatedScrollView = ({
   ...props
 }: AnimatedScrollViewProps) => {
   const imageHeight = headerImgHeight || IMG_HEADER_HEIGHT;
-  const scroll = useRef(new Animated.Value(0)).current;
+  const [scroll, onScroll, scale, translateY] =
+    useAnimateScrollView(imageHeight);
 
-  const scale = scroll.interpolate({
-    inputRange: [-imageHeight, 0, imageHeight],
-    outputRange: [2, 1, 0.9],
-    extrapolate: 'clamp',
-  });
-
-  const translateY = scroll.interpolate({
-    inputRange: [-imageHeight, 0, imageHeight],
-    outputRange: [-imageHeight * 0.5, 0, imageHeight * 0.5],
-    extrapolate: 'clamp',
-  });
   return (
     <>
       <AnimatedHeader scroll={scroll} imageHeight={imageHeight}>
         {HeaderComponent}
       </AnimatedHeader>
       <Animated.ScrollView
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { y: scroll } } }],
-          { useNativeDriver: true }
-        )}
+        onScroll={onScroll}
         scrollEventThrottle={16}
         {...props}
       >
