@@ -13,7 +13,12 @@ type Props = {
   HeaderComponent?: JSX.Element;
   imgSource?: ImageSourcePropType;
 } & ScrollViewProps;
-export const AnimatedScrollView = (props: Props) => {
+export const AnimatedScrollView = ({
+  HeaderComponent,
+  imgSource,
+  children,
+  ...props
+}: Props) => {
   const scroll = useRef(new Animated.Value(0)).current;
   const scale = scroll.interpolate({
     inputRange: [-HEADER_HEIGHT_MAX, 0, HEADER_HEIGHT_MAX],
@@ -27,21 +32,22 @@ export const AnimatedScrollView = (props: Props) => {
   });
   return (
     <>
-      <Header scroll={scroll}>{props.HeaderComponent}</Header>
+      <Header scroll={scroll}>{HeaderComponent}</Header>
       <Animated.ScrollView
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scroll } } }],
           { useNativeDriver: true }
         )}
         scrollEventThrottle={16}
+        {...props}
       >
         <View style={styles.imgContainer}>
           <Animated.Image
-            source={props.imgSource}
+            source={imgSource}
             style={[styles.img, { transform: [{ scale }, { translateY }] }]}
           />
         </View>
-        {props.children}
+        {children}
       </Animated.ScrollView>
     </>
   );
