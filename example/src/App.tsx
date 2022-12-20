@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import * as React from 'react';
 import { AnimatedScrollView } from 'react-native-useful-animations';
 import { Card } from './components/Card';

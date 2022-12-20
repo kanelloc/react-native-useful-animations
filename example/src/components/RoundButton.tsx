@@ -4,7 +4,12 @@ import { ArrowRight } from '../icons/ArrowRight';
 
 export const RoundButton = () => {
   return (
-    <TouchableOpacity style={styles.container} onPress={() => null}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => {
+        console.log('PRESS');
+      }}
+    >
       <ArrowRight />
     </TouchableOpacity>
   );
