@@ -2,8 +2,11 @@ import React from 'react';
 import { StatusBar, StyleSheet, Animated } from 'react-native';
 import { HEADER_HEIGHT_MAX } from '../../example/src/utils/constants';
 
-const Header = (props: { scroll: Animated.Value; children: any }) => {
-  const { scroll, children } = props;
+type Props = {
+  scroll: Animated.Value;
+  children: any;
+};
+const Header = ({ scroll, children }: Props) => {
   const opacity = scroll.interpolate({
     inputRange: [0, HEADER_HEIGHT_MAX * 0.75, HEADER_HEIGHT_MAX],
     outputRange: [0, 0, 1],
