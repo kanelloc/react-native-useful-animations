@@ -1,33 +1,25 @@
-import {
-  Animated,
-  ImageSourcePropType,
-  ScrollViewProps,
-  StyleSheet,
-  View,
-} from 'react-native';
+import { Animated, StyleSheet, View } from 'react-native';
 import React, { useRef } from 'react';
-import { IMG_HEADER_HEIGHT } from '../utils/constants';
+import { IMG_HEADER_HEIGHT } from '../constants';
 import AnimatedHeader from './AnimatedHeader';
+import type { AnimatedScrollViewProps } from '../types';
 
-type Props = {
-  HeaderComponent?: JSX.Element;
-  headerImgHeight?: number;
-  imgSource?: ImageSourcePropType;
-} & ScrollViewProps;
 export const AnimatedScrollView = ({
   HeaderComponent,
   headerImgHeight,
   imgSource,
   children,
   ...props
-}: Props) => {
+}: AnimatedScrollViewProps) => {
   const imageHeight = headerImgHeight || IMG_HEADER_HEIGHT;
   const scroll = useRef(new Animated.Value(0)).current;
+
   const scale = scroll.interpolate({
     inputRange: [-imageHeight, 0, imageHeight],
     outputRange: [2, 1, 0.9],
     extrapolate: 'clamp',
   });
+
   const translateY = scroll.interpolate({
     inputRange: [-imageHeight, 0, imageHeight],
     outputRange: [-imageHeight * 0.5, 0, imageHeight * 0.5],

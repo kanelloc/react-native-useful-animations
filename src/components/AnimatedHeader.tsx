@@ -1,6 +1,6 @@
 import React from 'react';
 import { StatusBar, StyleSheet, Animated } from 'react-native';
-import { HEADER_HEIGHT } from '../utils/constants';
+import { HEADER_HEIGHT } from '../constants';
 
 type Props = {
   scroll: Animated.Value;
@@ -9,12 +9,12 @@ type Props = {
 };
 const AnimatedHeader = ({ scroll, children, imageHeight }: Props) => {
   const HEADER_HEIGHT_DIFFERENCE = imageHeight - HEADER_HEIGHT;
-  const opacity = scroll.interpolate({
+  const headerOpacity = scroll.interpolate({
     inputRange: [0, HEADER_HEIGHT_DIFFERENCE * 0.75, HEADER_HEIGHT_DIFFERENCE],
     outputRange: [0, 0, 1],
     extrapolate: 'clamp',
   });
-  const opacity2 = scroll.interpolate({
+  const overflowHeaderOpacity = scroll.interpolate({
     inputRange: [0, HEADER_HEIGHT_DIFFERENCE * 0.75, HEADER_HEIGHT_DIFFERENCE],
     outputRange: [1, 1, 0],
     extrapolate: 'clamp',
@@ -31,7 +31,7 @@ const AnimatedHeader = ({ scroll, children, imageHeight }: Props) => {
         style={[
           styles.container,
           {
-            opacity,
+            opacity: headerOpacity,
             borderBottomWidth: StyleSheet.hairlineWidth,
             borderBottomColor: '#a4a4a4',
           },
@@ -42,7 +42,7 @@ const AnimatedHeader = ({ scroll, children, imageHeight }: Props) => {
       <Animated.View
         style={[
           styles.container,
-          { opacity: opacity2, backgroundColor: 'transparent' },
+          { opacity: overflowHeaderOpacity, backgroundColor: 'transparent' },
         ]}
       >
         {children}
