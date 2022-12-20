@@ -52,7 +52,8 @@ const Header = ({ scroll, children }: Props) => {
 const styles = StyleSheet.create({
   container: {
     paddingTop: 50 - 16,
-    zIndex: 100,
+    zIndex: 10,
+    elevation: 1,
     position: 'absolute',
     top: 0,
     width: '100%',
